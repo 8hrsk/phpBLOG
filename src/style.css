@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Monsterrat:500');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+
+* {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(39, 39, 39);
+    color: aliceblue;
+}
+
+.logo {
+    text-align: center;
+    height: 60px;
+    width: 150px;
+    background-color: rgb(121, 121, 121);
+    text-decoration: line-through;
+    color: aliceblue;
+    cursor: none;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+li, a, button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+}
+
+.navigation {
+    list-style: none;
+}
+
+.navigation li {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.userAction li {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+li a {
+    transition: all 0.3s ease 0s;
+}
+
+li a:hover {
+    color: #0088a9;
+}
+
+button {
+    padding: 9px 25px;
+    background-color: rgba(0,136,169,1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+button:hover {
+    background-color: rgba(0, 102, 128, 0.8);
+}
+
+.container {
+    margin: 25px 10%;
+    display: flex-box;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    margin: 0 0 5px 5px;
+}
+
+.post {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid rgba(0, 102, 128, 0.8);
+    border-radius: 5px;
+}
+
+.myInput {
+    border: 2px solid rgba(0, 102, 128, 0.8);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.myForm {
+    box-sizing: content-box;
+    padding: 0 0 5px 3px;
+    margin: 10px;
+    border: 2px solid rgba(0, 102, 128, 0.8);
+    border-radius: 5px;
+}
+
+.popup {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.success {
+    border: 2px solid green;
+}
