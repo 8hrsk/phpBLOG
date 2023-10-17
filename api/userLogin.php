@@ -32,4 +32,6 @@ if ($mysql->connect_error) {
     }
 }
 
-// header("Location: ../index.php");
+$mysql->close();
+
+header("Location: ../index.php");

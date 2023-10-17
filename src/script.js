@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
         loginBtn: document.getElementById('loginBtn'),
         registerBtn: document.getElementById('registerBtn'),        
         createPost: document.getElementById('createPost'),
-
         submitRegistration: document.getElementById('submitRegistration'),
         submitLogin: document.getElementById('submitLogin'),
     };
 
     const actions = {
+        action_1: document.querySelector("#action > li:nth-child(1)"),
+        action_2: document.querySelector("#action > li:nth-child(2)"),
+
         loginBtnDialog: document.getElementById('loginDialog'),
         registerBtnDialog: document.getElementById('registerDialog'),
         createPostDialog: document.getElementById('createPostDialog')
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         usernameLogin: document.getElementById('usernameLogin'),
         passwordLogin: document.getElementById('passwordLogin')
-    }
+    };
 
     mainBtns.submitRegistration.disabled = true;
 
@@ -107,4 +109,39 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    const deleteElement = (element) => {
+        element.remove();
+    }
+
+    const deleteCookie = (cookieName) => {
+        document.cookie = cookieName + '=;expires=Thu, 01 Jan, 1970 00:00:00 GMT'
+    }
+
+    const isLogged = () => {
+        const cookiesArray = document.cookie.split(";");
+        const cookies = document.cookie
+
+        if (cookies.includes('PHPSESSID')) {
+            deleteElement(loginBtn);
+            deleteElement(registerBtn);
+
+            const logoutButton = document.createElement('button')
+            logoutButton.innerText = "Logout";
+            actions.action_2.appendChild(logoutButton);
+    
+            const logged = document.createElement('div');
+            logged.innerText = `You are logged!`;
+            logged.classList.add('logged');
+            actions.action_1.appendChild(logged);
+
+            logoutButton.addEventListener('click', () => {
+                deleteCookie("PHPSESSID");
+                window.location.reload();
+            })
+        }
+    }
+
+    isLogged();
+
 })

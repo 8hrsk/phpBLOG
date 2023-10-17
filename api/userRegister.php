@@ -26,16 +26,19 @@ if ($mysql -> connect_error) {
         echo "User already exists";
     } else {
         //$mysql -> query("INSERT INTO users (username, email, password) VALUES('$username', '$userEmail', '$userPassword')");
-        $add_user = $mysql -> query("INSERT INTO users (username, email, password) VALUES('$username', '$userEmail', '$userPassword')");
+        $add_user = $mysql -> query("INSERT INTO users (name, email, password) VALUES('$username', '$userEmail', '$userPassword')");
         if ($add_user) {
             echo "User added successfully";
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $userEmail;
+             
         } else {
             echo $mysql -> error;
         }
         //header('Location: ../index.php');     
     }
 }
+
+header("Location: ../index.php");
 
 $mysql -> close();

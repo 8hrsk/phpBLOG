@@ -17,7 +17,7 @@
     background-color: rgb(121, 121, 121);
     text-decoration: line-through;
     color: aliceblue;
-    cursor: none;
+    cursor: default;
     font-family: 'Roboto Mono', monospace;
     font-weight: 500;
     font-size: 36px;
@@ -117,4 +117,12 @@ footer {
 
 .success {
     border: 2px solid green;
+}
+
+.logged {
+    padding: 9px 25px;
+    background-color: rgba(0,136,169,1);
+    border: none;
+    border-radius: 50px;
+    cursor:default;
 }

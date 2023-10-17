@@ -1,5 +1,4 @@
 <?php
-    session_start();
     $title = "Blog";
     require './components/header.php';
 ?>

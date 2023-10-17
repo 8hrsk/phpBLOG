@@ -20,7 +20,7 @@
             </ul>
         </nav>
 
-        <ul class="userAction">
+        <ul class="userAction" id="action">
             <li><button id="loginBtn">Login</button></li>
             <li><button id="registerBtn">Register</button></li>
         </div>
