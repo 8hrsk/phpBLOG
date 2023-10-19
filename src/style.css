@@ -11,10 +11,12 @@
 }
 
 .logo {
-    text-align: center;
+    padding: 3PX 0 0 30PX;
+    /* text-align: center; */
     height: 60px;
     width: 150px;
     background-color: rgb(121, 121, 121);
+    border-radius: 25%;
     text-decoration: line-through;
     color: aliceblue;
     cursor: default;

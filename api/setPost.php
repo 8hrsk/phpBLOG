@@ -23,3 +23,5 @@ if ($mysql -> connect_error) {
 }
 
 $mysql -> close();
+
+header("Location: ../index.php");

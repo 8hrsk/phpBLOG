@@ -1,5 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    console.log(document.cookie);
+
+    let userStatus = false;
+
+    (() => {
+        if (!document.cookie.includes('username') && !document.cookie.includes('PHPSESSID')) {
+            userStatus = false;
+        } else {
+            userStatus = true;
+        }
+    })();
+
     const mainBtns = {
         loginBtn: document.getElementById('loginBtn'),
         registerBtn: document.getElementById('registerBtn'),        
@@ -28,69 +40,76 @@ document.addEventListener('DOMContentLoaded', () => {
         passwordLogin: document.getElementById('passwordLogin')
     };
 
+    const fetchCookies = () => {
+        const cookiesArray = document.cookie.split(";");
+        return cookiesArray;
+    }
+
     mainBtns.submitRegistration.disabled = true;
+
+    const setError = (element) => {
+        element.classList.remove('success');
+        element.classList.add('error');
+    }
+
+    const setSuccess = (element) => {
+        element.classList.remove('error');
+        element.classList.add('success');
+    }
 
     const passwordCheck = (password, confirmPassword) => {
         if (password != confirmPassword || password.length == 0 || password.length > 32) {
-            checkBox.confirmPasswordRegistration.classList.add('error');
-            checkBox.passwordRegistration.classList.add('error');
-            checkBox.confirmPasswordRegistration.classList.remove('success');
-            checkBox.passwordRegistration.classList.remove('success');
-
+            setError(checkBox.confirmPasswordRegistration);
             return false;
         } else {
-            checkBox.confirmPasswordRegistration.classList.remove('error');
-            checkBox.passwordRegistration.classList.remove('error');
-            checkBox.confirmPasswordRegistration.classList.add('success');
-            checkBox.passwordRegistration.classList.add('success');
-
             return true;
         }
     }
 
     const checkEmail = (email) => {
         if (email.length == 0 || email.length > 129 || !email.includes('@') || !email.includes('.')) {
-            checkBox.emailRegistration.classList.add('error');
-            checkBox.emailRegistration.classList.remove('success');
-
             return false;
         } else {
-            checkBox.emailRegistration.classList.remove('error');
-            checkBox.emailRegistration.classList.add('success');
-
             return true;
         }
     }
 
     const checkUsername = (username) => {
         if (username.length == 0 || username.length > 20) {
-            checkBox.usernameRegistration.classList.add('error');
-            checkBox.usernameRegistration.classList.remove('success');
-
             return false;
         } else {
-            checkBox.usernameRegistration.classList.remove('error');
-            checkBox.usernameRegistration.classList.add('success');
-
             return true;
         }
     }
 
-    checkBox.confirmPasswordRegistration.addEventListener('input', (e) => {
-        console.log(1, checkBox.passwordRegistration.value, checkBox.confirmPasswordRegistration.value);
-        let password = checkBox.passwordRegistration.value;
-        let confirmPassword = e.target.value;
+    window.addEventListener('input', (e) => {
+        const password = checkBox.passwordRegistration.value;
+        const confirmPassword = checkBox.confirmPasswordRegistration.value;
+        const username = checkBox.usernameRegistration.value;
+        const email = checkBox.emailRegistration.value;
 
-        let username = checkBox.usernameRegistration.value;
-        let email = checkBox.emailRegistration.value;
-
-        if (password.length == 0 && confirmPassword.length == 0) {
-            checkBox.confirmPasswordRegistration.classList.add('error');
-            checkBox.passwordRegistration.classList.add('error');
-            checkBox.confirmPasswordRegistration.classList.remove('success');
-            checkBox.passwordRegistration.classList.remove('success');
+        if (username == '' || username.length > 20) {
+            setError(checkBox.usernameRegistration);
         } else {
-            if (passwordCheck(password, confirmPassword) && checkEmail(email) && checkUsername(username)) {
+            if (checkUsername(username)) {
+                setSuccess(checkBox.usernameRegistration);;
+            }
+        }
+
+        if (email == '' || email.length > 129 || !email.includes('@') || !email.includes('.')) {
+            setError(checkBox.emailRegistration);
+        } else {
+            if (checkEmail(email)) {
+                setSuccess(checkBox.emailRegistration);
+            }
+        }
+
+        if (password == '' || password.length > 32) {
+            setError(checkBox.passwordRegistration);
+        } else {
+            setSuccess(checkBox.passwordRegistration);
+            if (passwordCheck(password, confirmPassword)) {
+                setSuccess(checkBox.confirmPasswordRegistration);
                 mainBtns.submitRegistration.disabled = false;
             }
         }
@@ -118,11 +137,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.cookie = cookieName + '=;expires=Thu, 01 Jan, 1970 00:00:00 GMT'
     }
 
-    const isLogged = () => {
-        const cookiesArray = document.cookie.split(";");
-        const cookies = document.cookie
+    const mouseOnChangeEvent = (element, textToChange) => {
+        const elementText = element.innerText;
+        element.addEventListener('mouseenter', () => {
+            element.innerText = textToChange;
+        })
+        element.addEventListener('mouseleave', () => {
+            element.innerText = elementText;
+        })
+    }
 
-        if (cookies.includes('PHPSESSID')) {
+    (() => {
+        if (userStatus) {
             deleteElement(loginBtn);
             deleteElement(registerBtn);
 
@@ -137,11 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             logoutButton.addEventListener('click', () => {
                 deleteCookie("PHPSESSID");
+                deleteCookie("username");
                 window.location.reload();
             })
+
+        } else {
+            mainBtns.createPost.disabled = true;
+            mouseOnChangeEvent(mainBtns.createPost, 'Login first')
         }
-    }
-
-    isLogged();
-
+    })();
 })

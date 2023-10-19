@@ -11,12 +11,11 @@
 <body>
     <header>
         <div class="logo">
-            MYBLOG
+            BLOG
         </div>
         <nav>
             <ul class="navigation">
-                <li><a href="javascript:void(0);" id="createPost">Create Post</a></li>
-                <!--<li><a href="*">Browse Posts</a></li>-->
+                <li><button id="createPost">Create Post</button></li>
             </ul>
         </nav>
 
